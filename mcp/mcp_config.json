@@ -1,35 +1,54 @@
 {
   "mcpServers": {
     "brave-search": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "command": "uvx",
+      "args": ["mcp-server-brave-search"],
       "env": {
         "BRAVE_API_KEY": "${BRAVE_API_KEY}"
       },
-      "description": "Allows AI agents to search the live web for statistics, datasets, and domain context."
+      "description": "Live web search. Use to find statistics, datasets, news, and domain context. Essential for grounding the AI in real-world numbers during the hackathon."
     },
     "fetch": {
       "command": "uvx",
       "args": ["mcp-server-fetch"],
-      "description": "Allows AI agents to read raw HTML/JSON from any URL. Use for scraping quick datasets."
+      "description": "Fetches and converts any URL to clean markdown text. Use to read Kaggle dataset pages, government data portals, or research paper abstracts."
     },
     "sqlite": {
       "command": "uvx",
       "args": ["mcp-server-sqlite", "--db-path", "./data/hackathon.db"],
-      "description": "Allows AI agents to run SQL queries directly on the SQLite database."
+      "description": "Run SQL queries on the local SQLite database. Use when data has been loaded via the data pipeline and you need fast aggregation queries."
     },
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "command": "uvx",
+      "args": ["mcp-server-github"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
       },
-      "description": "Allows AI agents to search GitHub repos, read code, and create issues."
+      "description": "Search GitHub repos, read existing implementations, and create issues. Use to find boilerplate code for similar data science projects."
     },
     "filesystem": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-filesystem", "."],
-      "description": "Allows AI agents to read and write files in the workspace."
+      "command": "uvx",
+      "args": ["mcp-server-filesystem", "."],
+      "description": "Read and write files in the workspace. Agents use this to read CONTEXT.md, SKILL.md files, and write generated code to src/."
+    },
+    "memory": {
+      "command": "uvx",
+      "args": ["mcp-server-memory"],
+      "description": "Persistent key-value memory across sessions. Store discovered dataset URLs, API keys tested, and architectural decisions so agents remember them."
+    },
+    "sequential-thinking": {
+      "command": "uvx",
+      "args": ["mcp-server-sequential-thinking"],
+      "description": "Forces the AI to think step-by-step before answering. Use when debugging complex pipeline errors or architectural decisions."
+    },
+    "kaggle": {
+      "command": "uvx",
+      "args": ["mcp-server-kaggle"],
+      "env": {
+        "KAGGLE_USERNAME": "${KAGGLE_USERNAME}",
+        "KAGGLE_KEY": "${KAGGLE_KEY}"
+      },
+      "description": "Search and download Kaggle datasets and kernels directly. Use during the Data Hunter phase to find domain-specific CSVs."
     }
   }
 }
